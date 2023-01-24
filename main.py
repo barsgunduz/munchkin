@@ -26,3 +26,4 @@ items.give_card(main_player)
 items.give_card(main_player)
 
 main_player.display_obj_information()
+print("end")
