@@ -1,4 +1,8 @@
 import game_config
 import random
-from classes import User_Character, NPC_Monster, Monsters_Deck, Item, Items_Deck, Arena
+from classes import Character, Item, Deck
 
+main_player = Character("Player", "Bars", 0)
+
+deck = Deck(10, 10)
+deck.printDeck()
