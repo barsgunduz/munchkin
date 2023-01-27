@@ -1,67 +1,39 @@
 import game_config
-import random
 
-class Character:
+class Player:
 
-    def __init__(self, d_label="Monster", d_name="DefaultName", d_power = 1):
-        self.label = d_label
-        self.name = d_name
-        self.level = 0
-        self.power = d_power
+    def __init__(self, name = "DefaultPlayer", power = 1, type = "NPC", description = "TBD"):
+        self.name = name
+        self.power = power
         self.list_of_items = []
+        self.level = 1
+        self.type = type
+        self.description = description
 
-    def addItem(self, item_object):
-        self.list_of_items.append(item_object)
+    def increaseLevel(self):
+        self.level += 1
 
-    def removeItem(self, item_object):
-        self.list_of_items.remove(item_object)
+    def decreaseLevel(self):
+        self.level -= 1
+    
+    def addItem(self, item):
+        self.list_of_items.append(item)
+        print(self.name + " has received an item!")
+        print(item.name + " (" + str(item.power) + ")")
+
+    def removeItem(self,item):
+        return self.list_of_items.pop(0)
 
     def getTotalPower(self):
-        total_power = self.level + self.power
-        if len(self.list_of_items)>0:
-            for item in self.list_of_items:
-                total_power += item.power
-        return total_power
-    
-    def display(self):
-        print("Character: "+self.name+" ("+str(self.getTotalPower())+")")
+        power = 0
+        for item in self.list_of_items:
+            power += item.power
+        
+        return power + (self.level if self.type!="NPC" else 0)
 
 class Item:
 
-    def __init__(self, d_label="Item", d_name="DefaultItem", d_power = 1):
-        self.label = d_label
-        self.name = d_name
-        self.power = d_power
+    def __init__(self, name = "DefaultItem", power = 1):
+        self.name = name
+        self.power = power
 
-    def display(self):
-        print("Item: "+self.name+" ("+str(self.power)+")")
-
-class Deck:
-
-    def __init__(self, size_monsters = 10, size_items=10):
-        self.list_of_monsters=[]
-        self.list_of_items=[]
-        self.createMonsters(size_monsters)
-        self.createItems(size_items)
-
-    def createMonsters(self, size_monsters):
-        print("size will be "+str(size_monsters))
-        for i in range(0, size_monsters):
-            self.list_of_monsters.append(Character("Monster", "DefaultMonster", random.randint(1,5)))
-
-    def createItems(self, size_items):
-        for i in range(0, size_items):
-            self.list_of_items.append(Item("Item", "DefaultItem", random.randint(1,5)))
-
-    def printDeck(self):
-        count = 0
-        for monster in self.list_of_monsters:
-            count += 1
-            print(str(count), end=" ")
-            monster.display()
-        
-        count = 0
-        for item in self.list_of_items:
-            count += 1
-            print(str(count), end=" ")
-            item.display()
