@@ -1,6 +1,7 @@
 import game_config
 import random
-from classes import Player, Item
+from ClassPlayer import Player
+from ClassItem import Item
 
 #################################################
 # CREATE ITEMS, MONSTERS AND PLAYERS
