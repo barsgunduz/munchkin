@@ -30,3 +30,18 @@ class Player:
             power += item.power
         
         return power + (self.level if self.type!="NPC" else 0)
+
+    def describePlayer(self):
+        if self.type == "NPC":
+            print("")
+            print(self.name + " (" + str(self.power) + ")")
+            print(self.description)
+        elif self.type == "PLAYER":
+            print("")
+            print(self.name + ", Level: " 
+                + str(self.level) + " with a total power: " 
+                + str(self.getTotalPower()))
+            print("with the following items:")
+            for item in self.list_of_items:
+                print(item.name + " ("  + str(item.power) + ")")
+

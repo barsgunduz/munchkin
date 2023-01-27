@@ -2,53 +2,40 @@ import game_config
 import random
 from ClassPlayer import Player
 from ClassItem import Item
+from classes import ArenaController
 
 #################################################
 # CREATE ITEMS, MONSTERS AND PLAYERS
 #################################################
 
+# Create the Arena
+arena = ArenaController(10)
+
 # Create items
-ItemTypes = game_config.ItemTypes
-items=[]
-for i in range(0,len(ItemTypes)):
-    items.append(Item(ItemTypes[i][0], ItemTypes[i][1]))
+arena.createItemsDeck()
 
 # Create monsters
-MonsterTypes = game_config.MonsterTypes
-monsters=[]
-for i in range(0,len(MonsterTypes)):
-    monsters.append(Player(name = MonsterTypes[i][0], power = MonsterTypes[i][1], description = MonsterTypes[i][2]))
+arena.createMonstersDeck()
 
 # Create player
-player = Player("Bars", 1, "PLAYER")
+arena.createPlayers("Bars", 1)
 
 #################################################
 # SET THE SCENE
 #################################################
 
 # Give 2 items to player
-player.addItem(items.pop(0))
-player.addItem(items.pop(0))
+arena.giveItemToPlayer()
+arena.giveItemToPlayer()
 
 # Place a monster to Arena
-arena =[[], []]
-
-arena[0].append(monsters.pop(0))
+arena.placeMonsterToArena()
 
 # Place player to Arena
-arena[1].append(player)
+arena.placePlayerToArena()
 
-# Print the stats of monster
-print("")
-print(player.name + " has entered into a room. There is a monster in the room. " + arena[0][0].name + "!(" + str(arena[0][0].power) + ")")
-print(arena[0][0].description)
-
-# Print the stats of the player
-print("")
-print(player.name + " has " + str(player.getTotalPower()) + " power and level " + str(player.level) + ", has the following items;")
-for item in player.list_of_items:
-    print(item.name + " (Pwr:" + str(item.power) + ")")
-print("")
+# Describe the Arena
+arena.describeArena()
 
 #################################################
 # THE FIGHT
